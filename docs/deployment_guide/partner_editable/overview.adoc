@@ -1,10 +1,11 @@
 This guide covers the information you need to deploy the {partner-product-name} Partner Solution in the AWS Cloud.
 
-// Fill in the info in <angle brackets> for use on the landing page only: 
-This Amazon Web Services (AWS) Partner Solution deploys [<product name>](<partner's marketing product page>) in the AWS Cloud so that <purpose>. This solution is for <target users> who want to <do what> so that <why>. For more information, refer to the [<product name> documentation](<URL>).
+This Partner Solution reference deployment guide provides step-by-step instructions for deploying Cherwell Service Management connector on the AWS Cloud. The connector creates a reliable and fault-tolerant integration point between your AWS account and your Cherwell Service Management system.
 
-// Deploying this solution does not guarantee an organization’s compliance with any laws, certifications, policies, or other regulations. [Uncomment this statement only for solutions that relate to compliance. We'll add the corresponding reference part to the landing page and get legal approval before publishing.]
+=== Cherwell Service Management connector on AWS
 
-// For advanced information about the product, troubleshooting, or additional functionality, refer to the https://{partner-solution-github-org}.github.io/{partner-solution-project-name}/operational/index.html[Operational Guide^].
+By launching this Partner Solution in your AWS environment, you will be able to deploy https://aws.amazon.com/servicecatalog/[AWS Service Catalog] products, monitor AWS resources, and run AWS Systems Manager Automation documents (SSM Automation documents) from your Cherwell Service Management system.
 
-// For information about using this Partner Solution for migrations, refer to the https://{partner-solution-github-org}.github.io/{partner-solution-project-name}/migration/index.html[Migration Guide^].
+The Partner Solution architecture extends your current IT management and asset tracking process into your AWS account, to provide compliance, governance, and auto-remediation. From the Cherwell service portal, Cherwell users can request approved and tested AWS Service Catalog products, estimate the cost of each product, and view the current status of their request. When approved, products are automatically added to the user’s Cherwell Configuration Management Database (CMDB).
+
+The Partner Solution also creates an Amazon Simple Notification Service (Amazon SNS) topic. When you associate the SNS topic with an Amazon CloudWatch alarm, it will deliver CloudWatch alarm notifications to your Cherwell Incident Management console. Finally, from the Cherwell Service Management system, you can view and run SSM Automation documents to auto-remediate known issues within your AWS account.
