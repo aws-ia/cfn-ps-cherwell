@@ -1,5 +1,5 @@
 project:
-  name: quickstart-cherwell
+  name: cfn-ps-cherwell
   owner: quickstart-eng@amazon.com
   package_lambda: false
   shorten_stack_name: true
@@ -30,7 +30,7 @@ tests:
       Password: CSDAdmin
       QSS3BucketName: $[taskcat_autobucket]
       QSS3BucketRegion: $[taskcat_current_region]
-      QSS3KeyPrefix: quickstart-cherwell/
+      QSS3KeyPrefix: cfn-ps-cherwell/
       Url: http://yourserver.com
       Username: CSDAdmin
     regions:
@@ -59,7 +59,7 @@ tests:
       Password: CSDAdmin
       QSS3BucketName: $[taskcat_autobucket]
       QSS3BucketRegion: $[taskcat_current_region]
-      QSS3KeyPrefix: quickstart-cherwell/
+      QSS3KeyPrefix: cfn-ps-cherwell/
       Url: http://yourserver
       Username: CSDAdmin
     regions:
