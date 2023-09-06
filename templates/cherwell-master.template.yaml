@@ -65,7 +65,7 @@ Parameters:
       include numbers, lowercase letters, uppercase letters, and hyphens (-). It
       cannot start or end with a hyphen (-)
     Type: String
-    Default: aws-quickstart
+    Default: aws-ia-us-east-1
   QSS3BucketRegion:
     Default: "us-east-1"
     Description: "The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value."
@@ -80,7 +80,7 @@ Parameters:
       include numbers, lowercase letters, uppercase letters, hyphens (-), and
       forward slash (/).
     Type: String
-    Default: quickstart-cherwell/
+    Default: cfn-ps-cherwell/
   Username:
     Description:
       The user name of the user on the Cherwell instance who is authorized to
