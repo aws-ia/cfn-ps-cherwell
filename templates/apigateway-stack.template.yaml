@@ -52,7 +52,7 @@ Resources:
       Policies:
         - PolicyName:
             Fn::Join:
-              - "-"
+              - '-'
               - - cherdwell-service
                 - Ref: AWS::StackName
           PolicyDocument:
@@ -91,7 +91,7 @@ Resources:
                   - ssm:ListDocumentVersions
                   - ssm:StartAutomationExecution
                   - ssm:StopAutomationExecution
-                Resource: "*"
+                Resource: '*'
               - Effect: Allow
                 Action:
                   - servicecatalog:DescribeProvisionedProduct
@@ -105,11 +105,18 @@ Resources:
                   - servicecatalog:ExecuteProvisionedProductPlan
                   - servicecatalog:DeleteProvisionedProductPlan
                   - servicecatalog:ListProvisionedProductPlans
-                Resource: "*"
+                Resource: '*'
                 Condition:
                   StringEquals:
                     servicecatalog:userLevel: self
       Path: /
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            - EIAMPolicyWildcardResource: Intent assumed for initial migration.
   RestApi:
     Type: AWS::ApiGateway::RestApi
     Properties:
@@ -153,7 +160,7 @@ Resources:
       HttpMethod: OPTIONS
       ApiKeyRequired: true
       MethodResponses:
-        - StatusCode: "200"
+        - StatusCode: '200'
           ResponseParameters:
             method.response.header.Access-Control-Allow-Origin: true
             method.response.header.Access-Control-Allow-Headers: true
@@ -165,19 +172,18 @@ Resources:
       Integration:
         Type: MOCK
         RequestTemplates:
-          application/json: "{statusCode:200}"
+          application/json: '{statusCode:200}'
         ContentHandling: CONVERT_TO_TEXT
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseParameters:
-              method.response.header.Access-Control-Allow-Origin: "'*'"
-              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Securit\
-                y-Token,X-Amz-User-Agent'"
-              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,POST'"
-              method.response.header.Access-Control-Allow-Credentials: "'false'"
-              method.response.header.Access-Control-Max-Age: "'86400'"
+              method.response.header.Access-Control-Allow-Origin: '''*'''
+              method.response.header.Access-Control-Allow-Headers: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'''
+              method.response.header.Access-Control-Allow-Methods: '''OPTIONS,POST'''
+              method.response.header.Access-Control-Allow-Credentials: '''false'''
+              method.response.header.Access-Control-Max-Age: '''86400'''
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
       ResourceId:
         Ref: GetestimateResource
       RestApiId:
@@ -198,10 +204,10 @@ Resources:
         Type: AWS_PROXY
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:"
+            - ''
+            - - 'arn:'
               - Ref: AWS::Partition
-              - ":apigateway:"
+              - ':apigateway:'
               - Ref: AWS::Region
               - :lambda:path/2015-03-31/functions/
               - Ref: GetEstimateFunction
@@ -215,19 +221,19 @@ Resources:
       Action: lambda:InvokeFunction
       Principal:
         Fn::Join:
-          - ""
+          - ''
           - - apigateway.
             - Ref: AWS::URLSuffix
       SourceArn:
         Fn::Join:
-          - ""
-          - - "arn:"
+          - ''
+          - - 'arn:'
             - Ref: AWS::Partition
-            - ":execute-api:"
+            - ':execute-api:'
             - Ref: AWS::Region
-            - ":"
+            - ':'
             - Ref: AWS::AccountId
-            - ":"
+            - ':'
             - Ref: RestApi
             - /*/*
   SearchProductsResource:
@@ -259,24 +265,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.SearchProducts'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.SearchProducts'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   CreateProvisionedProductplanResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -306,24 +312,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.CreateProvisionedProductPlan'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.CreateProvisionedProductPlan'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   DeleteProvisionedProductPlanResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -353,24 +359,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.DeleteProvisionedProductPlan'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.DeleteProvisionedProductPlan'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   DescribeProductResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -400,24 +406,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.DescribeProduct'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.DescribeProduct'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   DescribeProvisionedProductResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -447,24 +453,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.DescribeProvisionedProduct'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.DescribeProvisionedProduct'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   DescribeProvisionedProductPlanResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -494,24 +500,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.DescribeProvisionedProductPlan'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.DescribeProvisionedProductPlan'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   DescribeProvisioningParametersResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -541,24 +547,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.DescribeProvisioningParameters'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.DescribeProvisioningParameters'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   ExecuteProvisionedProductPlanResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -588,24 +594,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.ExecuteProvisionedProductPlan'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.ExecuteProvisionedProductPlan'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   ListLaunchPathsResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -635,24 +641,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.ListLaunchPaths'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.ListLaunchPaths'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   ListProvisionedProductPlansResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -682,24 +688,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.ListProvisionedProductPlans'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.ListProvisionedProductPlans'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   ListRecordHistoryResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -729,24 +735,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.ListRecordHistory'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.ListRecordHistory'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   ProvisionProductResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -776,24 +782,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.ProvisionProduct'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.ProvisionProduct'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
   TerminateProvisionedProductResource:
     Type: AWS::ApiGateway::Resource
     Properties:
@@ -823,24 +829,24 @@ Resources:
         IntegrationHttpMethod: POST
         Uri:
           Fn::Join:
-            - ""
-            - - "arn:aws:apigateway:"
+            - ''
+            - - 'arn:aws:apigateway:'
               - Ref: AWS::Region
               - :servicecatalog:path//
         IntegrationResponses:
-          - StatusCode: "200"
+          - StatusCode: '200'
             ResponseTemplates:
-              application/json: ""
-          - StatusCode: "400"
+              application/json: ''
+          - StatusCode: '400'
             SelectionPattern: 4\d{2}
             ResponseTemplates:
-              application/json: ""
+              application/json: ''
         RequestParameters:
-          integration.request.header.Content-Type: "'application/x-amz-json-1.1'"
-          integration.request.header.x-Amz-Target: "'AWS242ServiceCatalogService.TerminateProvisionedProduct'"
+          integration.request.header.Content-Type: '''application/x-amz-json-1.1'''
+          integration.request.header.x-Amz-Target: '''AWS242ServiceCatalogService.TerminateProvisionedProduct'''
       MethodResponses:
-        - StatusCode: "200"
-        - StatusCode: "400"
+        - StatusCode: '200'
+        - StatusCode: '400'
 Outputs:
   GatewayRole:
     Description: Iam role to allow API gateway to launch Service Catalog products.
@@ -852,7 +858,7 @@ Outputs:
     Description: URL of the service endpoint
     Value:
       Fn::Join:
-        - ""
+        - ''
         - - https://
           - Ref: RestApi
           - .execute-api.
