@@ -77,7 +77,7 @@ Resources:
                 - config.amazonaws.com
             Action: s3:GetBucketAcl
             Resource:
-              - Fn::Sub: arn:aws:s3:::${ConfigBucket}
+              - Fn::Sub: arn:${AWS::Partition}:s3:::${ConfigBucket}
           - Sid: AWSConfigBucketDelivery
             Effect: Allow
             Principal:
@@ -85,7 +85,7 @@ Resources:
                 - config.amazonaws.com
             Action: s3:PutObject
             Resource:
-              - Fn::Sub: arn:aws:s3:::${ConfigBucket}/AWSLogs/${AWS::AccountId}/*
+              - Fn::Sub: arn:${AWS::Partition}:s3:::${ConfigBucket}/AWSLogs/${AWS::AccountId}/*
   ConfigRecorderRole:
     Condition: DoEnableAWSConfigRecorder
     Type: AWS::IAM::Role
@@ -101,7 +101,7 @@ Resources:
               - sts:AssumeRole
       Path: /
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSConfigRole
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSConfigRole
   ConfigRecorder:
     Condition: DoEnableAWSConfigRecorder
     Type: AWS::Config::ConfigurationRecorder

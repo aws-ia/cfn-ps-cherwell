@@ -73,8 +73,8 @@ Resources:
                   - cloudformation:ListChangeSets
                   - cloudformation:DeleteChangeSet
                 Resource:
-                  - arn:aws:cloudformation:*:*:stack/SC-*
-                  - arn:aws:cloudformation:*:*:changeSet/SC-*
+                  - !Sub arn:${AWS::Partition}:cloudformation:*:*:stack/SC-*
+                  - !Sub arn:${AWS::Partition}:cloudformation:*:*:changeSet/SC-*
               - Effect: Allow
                 Action:
                   - cloudformation:GetTemplateSummary

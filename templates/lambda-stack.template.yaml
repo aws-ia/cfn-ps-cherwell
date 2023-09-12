@@ -137,7 +137,7 @@ Resources:
                   - logs:CreateLogGroup
                   - logs:CreateLogStream
                   - logs:PutLogEvents
-                Resource: arn:aws:logs:*:*:*
+                Resource: !Sub arn:${AWS::Partition}:logs:*:*:*
               - Effect: Allow
                 Action:
                   - cloudformation:EstimateTemplateCost
@@ -192,7 +192,7 @@ Resources:
             Action:
               - sts:AssumeRole
       ManagedPolicyArns:
-        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - !Sub arn:${AWS::Partition}:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
       Policies:
         - PolicyName: lambda-copier
           PolicyDocument:
@@ -214,13 +214,13 @@ Resources:
                   - s3:PutObject
                   - s3:DeleteObject
                 Resource:
-                  - Fn::Sub: arn:aws:s3:::${LambdaZipsBucket}/${QSS3KeyPrefix}*
+                  - Fn::Sub: arn:${AWS::Partition}:s3:::${LambdaZipsBucket}/${QSS3KeyPrefix}*
   CopyZipsFunction:
     Type: AWS::Lambda::Function
     Properties:
       Description: Copies objects from a source S3 bucket to a destination
       Handler: index.handler
-      Runtime: python3.6
+      Runtime: python3.9
       Role:
         Fn::GetAtt:
           - CopyZipsRole
