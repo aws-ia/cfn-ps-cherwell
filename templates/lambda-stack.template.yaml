@@ -398,3 +398,6 @@ Outputs:
       Fn::GetAtt:
         - EstimateLambdaFunction
         - Arn
+  QSS3BucketRegion:
+    Value:
+      Ref: QSS3BucketRegion

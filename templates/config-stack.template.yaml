@@ -244,3 +244,4 @@ Resources:
       Source:
         Owner: AWS
         SourceIdentifier: S3_BUCKET_PUBLIC_READ_PROHIBITED
+Outputs: {}
