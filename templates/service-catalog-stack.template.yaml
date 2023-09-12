@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: 'AWS CloudFormation Template: Creates a Sample Service Catalog to demonstrate the kind of resources that can be provisioned by the Cherwell connector. **WARNING** This template creates an Amazon
-  You will be billed for the AWS resources used if you create a stack from this catalog.'
+  You will be billed for the AWS resources used if you create a stack from this catalog. (qs-1ui8pi9re)'
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:

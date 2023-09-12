@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: 2010-09-09
 Description: AWS Config rules are enabled for monitoring storage encryption (Amazon Elastic Block Store, Amazon S3, and Amazon Relational Database Service), AWS Identity and Access Management (IAM) password
-  policy, root account multi-factor authentication (MFA), Amazon S3 public read and write, and insecure security group rules
+  policy, root account multi-factor authentication (MFA), Amazon S3 public read and write, and insecure security group rules (qs-1ui8pi4l5)
 Metadata:
   AWS::CloudFormation::Interface:
     ParameterGroups:
